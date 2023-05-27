@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
@@ -18,8 +19,12 @@ const AuthContexProvider = ({ children }) => {
 
   const auth = getAuth(app);
 
-  const signIn = (email, password) => {
+  const signUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signIn = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const AuthContexProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const authInfo = { user, signIn };
+  const authInfo = { user, signUp, signIn };
   return <AuthContex.Provider value={authInfo}>{children}</AuthContex.Provider>;
 };
 

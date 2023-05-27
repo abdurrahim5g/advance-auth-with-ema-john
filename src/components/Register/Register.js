@@ -9,7 +9,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const { signIn } = useAuthContex();
+  const { signUp } = useAuthContex();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ const Register = () => {
       setError("Your Password & Confirm Password dosen't match");
       return;
     } else {
-      signIn(email, password)
+      signUp(email, password)
         .then((result) => {
           setError();
           form.reset();
