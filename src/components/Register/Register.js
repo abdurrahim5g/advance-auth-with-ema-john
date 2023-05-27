@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import google from "../../images/Google.png";
 import "./Register.css";
 import { useAuthContex } from "../../contex/AuthContexProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Register = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const { signUp } = useAuthContex();
+  const { signUp, signInWithProvider } = useAuthContex();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,6 +38,18 @@ const Register = () => {
         .catch((err) => setError(err.code));
       console.log(email, password, confirm);
     }
+  };
+
+  // sign in with provider / popup
+  const googleProvider = new GoogleAuthProvider();
+  const handleProviderSignIn = (provider) => {
+    signInWithProvider(provider)
+      .then((result) => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
   };
 
   return (
@@ -76,13 +89,13 @@ const Register = () => {
             <span className="or">or</span>
             <span className="line"></span>
           </div>
-
-          <div className="google-login">
-            <button>
-              <img src={google} alt="Google Login" />
-            </button>
-          </div>
         </form>
+
+        <div className="google-login">
+          <button onClick={() => handleProviderSignIn(googleProvider)}>
+            <img src={google} alt="Google Login" />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
@@ -32,6 +33,10 @@ const AuthContexProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const signInWithProvider = (provider) => {
+    return signInWithPopup(auth, provider);
+  };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -42,7 +47,7 @@ const AuthContexProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const authInfo = { user, signUp, signIn, logOut };
+  const authInfo = { user, signUp, signIn, logOut, signInWithProvider };
   return <AuthContex.Provider value={authInfo}>{children}</AuthContex.Provider>;
 };
 
