@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import google from "../../images/Google.png";
 import { useAuthContex } from "../../contex/AuthContexProvider";
 import { GoogleAuthProvider } from "firebase/auth";
@@ -8,8 +8,10 @@ const Login = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-
   const { signIn, signInWithProvider } = useAuthContex();
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +30,7 @@ const Login = () => {
         .then((result) => {
           setError();
           form.reset();
-          navigate("/");
+          navigate(from, { replace: true });
         })
         .catch((err) => setError(err.code));
       console.log(email, password);
@@ -40,7 +42,7 @@ const Login = () => {
   const handleProviderSignIn = (provider) => {
     signInWithProvider(provider)
       .then((result) => {
-        navigate("/");
+        navigate(from);
       })
       .catch((err) => {
         console.log(err.code);
