@@ -8,6 +8,7 @@ import { productsAndCartLoader } from "../loaders/productsAndCartLoader";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 import Shipping from "../components/Shipping/Shipping";
+import RequireAuth from "../components/RequireAuth/RequireAuth";
 
 const router = createBrowserRouter([
   {
@@ -22,15 +23,27 @@ const router = createBrowserRouter([
       {
         path: "orders",
         loader: productsAndCartLoader,
-        element: <Orders></Orders>,
+        element: (
+          <RequireAuth>
+            <Orders></Orders>
+          </RequireAuth>
+        ),
       },
       {
         path: "inventory",
-        element: <Inventory></Inventory>,
+        element: (
+          <RequireAuth>
+            <Inventory></Inventory>
+          </RequireAuth>
+        ),
       },
       {
         path: "shipping",
-        element: <Shipping></Shipping>,
+        element: (
+          <RequireAuth>
+            <Shipping></Shipping>
+          </RequireAuth>
+        ),
       },
       {
         path: "about",

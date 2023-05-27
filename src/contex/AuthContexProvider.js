@@ -18,6 +18,7 @@ export const useAuthContex = () => useContext(AuthContex);
 
 const AuthContexProvider = ({ children }) => {
   const [user, setUser] = useState({ name: "Abdur Rahim" });
+  const [loading, setLoading] = useState(true);
 
   const auth = getAuth(app);
 
@@ -40,6 +41,7 @@ const AuthContexProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
       console.log(currentUser);
     });
 
@@ -47,7 +49,14 @@ const AuthContexProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const authInfo = { user, signUp, signIn, logOut, signInWithProvider };
+  const authInfo = {
+    user,
+    loading,
+    signUp,
+    signIn,
+    logOut,
+    signInWithProvider,
+  };
   return <AuthContex.Provider value={authInfo}>{children}</AuthContex.Provider>;
 };
 
