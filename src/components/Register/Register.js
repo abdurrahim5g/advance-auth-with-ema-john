@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google from "../../images/Google.png";
 import "./Register.css";
 import { useAuthContex } from "../../contex/AuthContexProvider";
 
 const Register = () => {
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const { signIn } = useAuthContex();
 
@@ -29,6 +31,8 @@ const Register = () => {
       signIn(email, password)
         .then((result) => {
           setError();
+          form.reset();
+          navigate("/");
         })
         .catch((err) => setError(err.code));
       console.log(email, password, confirm);
