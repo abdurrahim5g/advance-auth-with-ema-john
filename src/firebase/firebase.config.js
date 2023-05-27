@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: "advance-auth-with-ema-john",
   storageBucket: "advance-auth-with-ema-john.appspot.com",
   messagingSenderId: "550825554348",
-  appId: "1:550825554348:web:1315cd53725256d92a0a09"
+  appId: "1:550825554348:web:1315cd53725256d92a0a09",
 };
 
 // Initialize Firebase

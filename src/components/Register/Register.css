@@ -91,3 +91,10 @@
 .google-login button img {
   width: 100%;
 }
+
+.error-text {
+  margin-top: -20px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #ec4a3d;
+}
