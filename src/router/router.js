@@ -7,6 +7,7 @@ import About from "../components/About/About";
 import { productsAndCartLoader } from "../loaders/productsAndCartLoader";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
+import Shipping from "../components/Shipping/Shipping";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "inventory",
         element: <Inventory></Inventory>,
+      },
+      {
+        path: "shipping",
+        element: <Shipping></Shipping>,
       },
       {
         path: "about",
